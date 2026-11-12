@@ -1,0 +1,237 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="robeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B192C" />
+      <stop offset="100%" stop-color="#1E3E62" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082" />
+      <stop offset="50%" stop-color="#D4AF37" />
+      <stop offset="100%" stop-color="#B8972E" />
+    </linearGradient>
+    <linearGradient id="skinGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD5B5" />
+      <stop offset="100%" stop-color="#E8B088" />
+    </linearGradient>
+    <linearGradient id="skinGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCE1CA" />
+      <stop offset="100%" stop-color="#D99B75" />
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2D3748" />
+      <stop offset="100%" stop-color="#1A202C" />
+    </linearGradient>
+    <linearGradient id="screenGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#0284C7" stop-opacity="0.2" />
+    </linearGradient>
+    <filter id="glowFilter" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <style>
+      @keyframes floatFigure1 {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+      }
+      @keyframes floatFigure2 {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-14px); }
+        100% { transform: translateY(0px); }
+      }
+      @keyframes floatFigure3 {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-8px); }
+        100% { transform: translateY(0px); }
+      }
+      @keyframes scaleSwing {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(3deg); }
+        75% { transform: rotate(-3deg); }
+        100% { transform: rotate(0deg); }
+      }
+      @keyframes waveArm {
+        0% { transform: rotate(0deg); }
+        50% { transform: rotate(-4deg); }
+        100% { transform: rotate(0deg); }
+      }
+      @keyframes beamScan {
+        0% { opacity: 0.3; transform: translateY(-15px); }
+        50% { opacity: 0.9; transform: translateY(20px); }
+        100% { opacity: 0.3; transform: translateY(-15px); }
+      }
+      .anim-counsel { animation: floatFigure1 5.5s ease-in-out infinite; }
+      .anim-judge { animation: floatFigure2 6.5s ease-in-out infinite; animation-delay: 0.6s; }
+      .anim-analyst { animation: floatFigure3 5.0s ease-in-out infinite; animation-delay: 1.2s; }
+      .anim-scales { animation: scaleSwing 6s ease-in-out infinite; transform-origin: 425px 90px; }
+      .anim-arm { animation: waveArm 4s ease-in-out infinite; transform-origin: 220px 240px; }
+      .anim-beam { animation: beamScan 3s ease-in-out infinite; }
+    </style>
+  </defs>
+
+  <!-- Background Judicial Pillar Architecture Outline -->
+  <g opacity="0.12">
+    <rect x="100" y="60" width="30" height="380" fill="#FFFFFF" rx="4"/>
+    <rect x="720" y="60" width="30" height="380" fill="#FFFFFF" rx="4"/>
+    <path d="M70 60 L780 60 L425 15 Z" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Central Floating Judicial Scales of Justice -->
+  <g class="anim-scales">
+    <!-- Center Beam -->
+    <line x1="425" y1="90" x2="425" y2="220" stroke="url(#goldGrad)" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="425" cy="90" r="10" fill="url(#goldGrad)"/>
+    <!-- Crossbar -->
+    <line x1="335" y1="120" x2="515" y2="120" stroke="url(#goldGrad)" stroke-width="5" stroke-linecap="round"/>
+    <!-- Left Plate -->
+    <line x1="335" y1="120" x2="310" y2="175" stroke="#CBD5E1" stroke-width="1.5"/>
+    <line x1="335" y1="120" x2="360" y2="175" stroke="#CBD5E1" stroke-width="1.5"/>
+    <path d="M295 175 Q335 195 375 175 Z" fill="url(#goldGrad)" opacity="0.9"/>
+    <!-- Right Plate -->
+    <line x1="515" y1="120" x2="490" y2="175" stroke="#CBD5E1" stroke-width="1.5"/>
+    <line x1="515" y1="120" x2="540" y2="175" stroke="#CBD5E1" stroke-width="1.5"/>
+    <path d="M475 175 Q515 195 555 175 Z" fill="url(#goldGrad)" opacity="0.9"/>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- FIGURE 1 (LEFT): SENIOR ADVOCATE / COUNSEL -->
+  <!-- ========================================== -->
+  <g class="anim-counsel">
+    <!-- Shadow -->
+    <ellipse cx="230" cy="460" rx="75" ry="14" fill="#000000" opacity="0.25"/>
+
+    <!-- Body / Suit / Advocate Robe -->
+    <path d="M160 440 L180 250 L280 250 L300 440 Z" fill="url(#robeGrad)"/>
+    <!-- White advocate shirt & collar band -->
+    <polygon points="215,250 245,250 235,310 225,310" fill="#FFFFFF"/>
+    <rect x="223" y="270" width="6" height="35" fill="#FFFFFF" rx="1"/>
+    <rect x="231" y="270" width="6" height="35" fill="#FFFFFF" rx="1"/>
+    <!-- Suit Lapels -->
+    <path d="M185 250 L220 340 L210 440" stroke="#060E18" stroke-width="3" fill="none"/>
+    <path d="M275 250 L240 340 L250 440" stroke="#060E18" stroke-width="3" fill="none"/>
+
+    <!-- Head & Neck -->
+    <rect x="218" y="225" width="24" height="28" fill="url(#skinGrad1)" rx="3"/>
+    <ellipse cx="230" cy="205" rx="28" ry="34" fill="url(#skinGrad1)"/>
+    <!-- Hair -->
+    <path d="M202 205 Q200 170 230 170 Q260 170 258 205 Q245 185 230 185 Q215 185 202 205 Z" fill="url(#hairGrad)"/>
+    <!-- Glasses -->
+    <circle cx="221" cy="205" r="9" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+    <circle cx="239" cy="205" r="9" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+    <line x1="230" y1="205" x2="230" y2="205" stroke="url(#goldGrad)" stroke-width="2"/>
+    <!-- Smile & Eyes -->
+    <circle cx="221" cy="205" r="2.5" fill="#1E293B"/>
+    <circle cx="239" cy="205" r="2.5" fill="#1E293B"/>
+    <path d="M224 222 Q230 227 236 222" stroke="#B45309" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+    <!-- Moving Arm holding Legal Brief Folder -->
+    <g class="anim-arm">
+      <!-- Left arm folded holding legal brief -->
+      <path d="M180 260 L145 330 L175 365 L210 320" fill="none" stroke="url(#robeGrad)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Legal Brief Folder -->
+      <g transform="translate(140, 310) rotate(-15)">
+        <rect x="0" y="0" width="55" height="70" rx="4" fill="#B45309"/>
+        <rect x="5" y="5" width="45" height="60" rx="2" fill="#FFFFFF"/>
+        <line x1="12" y1="18" x2="40" y2="18" stroke="#94A3B8" stroke-width="3"/>
+        <line x1="12" y1="28" x2="35" y2="28" stroke="#94A3B8" stroke-width="2"/>
+        <line x1="12" y1="36" x2="42" y2="36" stroke="#94A3B8" stroke-width="2"/>
+        <!-- Red Seal ribbon -->
+        <circle cx="35" cy="50" r="6" fill="#DC2626"/>
+      </g>
+      <!-- Hand -->
+      <circle cx="178" cy="355" r="9" fill="url(#skinGrad1)"/>
+    </g>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- FIGURE 2 (CENTER): PRESIDING HIGH JUDGE   -->
+  <!-- ========================================== -->
+  <g class="anim-judge">
+    <!-- Shadow -->
+    <ellipse cx="425" cy="465" rx="85" ry="16" fill="#000000" opacity="0.3"/>
+
+    <!-- Judicial Bench Podium Front -->
+    <rect x="340" y="380" width="170" height="90" rx="8" fill="#451A03" stroke="url(#goldGrad)" stroke-width="3"/>
+    <rect x="355" y="395" width="140" height="65" rx="4" fill="#78350F"/>
+    <circle cx="425" cy="427" r="18" fill="url(#goldGrad)" opacity="0.3"/>
+    <polygon points="425,415 435,435 415,435" fill="url(#goldGrad)"/>
+
+    <!-- Judge Robe Body -->
+    <path d="M350 400 L370 230 L480 230 L500 400 Z" fill="#0F172A"/>
+    <!-- Crimson & Gold Sash -->
+    <path d="M380 230 L410 380 L440 380 L470 230" fill="url(#goldGrad)" opacity="0.85"/>
+    <polygon points="415,230 435,230 430,300 420,300" fill="#FFFFFF"/>
+
+    <!-- Head & Judicial Wig / Formal Hair -->
+    <rect x="412" y="200" width="26" height="32" fill="url(#skinGrad2)" rx="4"/>
+    <ellipse cx="425" cy="180" rx="30" ry="34" fill="url(#skinGrad2)"/>
+    <!-- Silver-white Judicial Crown / Hair -->
+    <path d="M392 180 Q390 140 425 140 Q460 140 458 180 Q465 210 450 220 Q440 160 425 160 Q410 160 400 220 Z" fill="#E2E8F0"/>
+    <!-- Face details -->
+    <circle cx="414" cy="180" r="3" fill="#1E293B"/>
+    <circle cx="436" cy="180" r="3" fill="#1E293B"/>
+    <path d="M410 170 Q415 166 420 170" stroke="#64748B" stroke-width="2" fill="none"/>
+    <path d="M430 170 Q435 166 440 170" stroke="#64748B" stroke-width="2" fill="none"/>
+    <path d="M418 200 Q425 204 432 200" stroke="#9A3412" stroke-width="2" fill="none"/>
+
+    <!-- Judicial Gavel on Bench -->
+    <g transform="translate(450, 365) rotate(-20)">
+      <rect x="0" y="6" width="35" height="12" rx="2" fill="#92400E" stroke="url(#goldGrad)" stroke-width="1.5"/>
+      <rect x="14" y="0" width="7" height="24" rx="2" fill="url(#goldGrad)"/>
+      <rect x="15" y="16" width="5" height="35" rx="2" fill="#78350F"/>
+    </g>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- FIGURE 3 (RIGHT): LEGAL AI ANALYST        -->
+  <!-- ========================================== -->
+  <g class="anim-analyst">
+    <!-- Shadow -->
+    <ellipse cx="620" cy="460" rx="70" ry="14" fill="#000000" opacity="0.25"/>
+
+    <!-- Modern Smart Business Attire -->
+    <path d="M560 440 L575 260 L665 260 L680 440 Z" fill="#1E3E62"/>
+    <!-- Elegant Blazer and Shirt -->
+    <polygon points="605,260 635,260 625,320 615,320" fill="#F8FAFC"/>
+    <polygon points="617,290 623,290 620,380" fill="url(#goldGrad)"/>
+
+    <!-- Head & Hair -->
+    <rect x="608" y="235" width="24" height="28" fill="url(#skinGrad1)" rx="3"/>
+    <ellipse cx="620" cy="215" rx="27" ry="32" fill="url(#skinGrad1)"/>
+    <!-- Modern professional hair bun -->
+    <path d="M593 215 Q590 175 620 175 Q650 175 647 215 Q635 190 620 190 Q605 190 593 215 Z" fill="#4A1D96"/>
+    <circle cx="620" cy="168" r="12" fill="#4A1D96"/>
+    <!-- Face -->
+    <circle cx="612" cy="215" r="2.5" fill="#1E293B"/>
+    <circle cx="628" cy="215" r="2.5" fill="#1E293B"/>
+    <path d="M614 230 Q620 235 626 230" stroke="#E11D48" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+    <!-- High-Tech Holographic Legal Tablet -->
+    <g transform="translate(565, 310)">
+      <rect x="0" y="0" width="85" height="110" rx="6" fill="#0F172A" stroke="url(#goldGrad)" stroke-width="2"/>
+      <rect x="5" y="5" width="75" height="100" rx="4" fill="url(#screenGlow)"/>
+      <!-- Extractive AI Graph Lines -->
+      <polyline points="15,40 28,25 45,55 60,30 70,45" fill="none" stroke="#FFFFFF" stroke-width="2.5"/>
+      <circle cx="28" cy="25" r="3.5" fill="url(#goldGrad)"/>
+      <circle cx="45" cy="55" r="3.5" fill="url(#goldGrad)"/>
+      <circle cx="60" cy="30" r="3.5" fill="url(#goldGrad)"/>
+      <!-- Text lines -->
+      <line x1="15" y1="70" x2="70" y2="70" stroke="#FFFFFF" stroke-width="2" opacity="0.8"/>
+      <line x1="15" y1="80" x2="60" y2="80" stroke="#FFFFFF" stroke-width="2" opacity="0.8"/>
+      <line x1="15" y1="90" x2="72" y2="90" stroke="url(#goldGrad)" stroke-width="2.5"/>
+      <!-- Scanning Laser Beam -->
+      <line class="anim-beam" x1="5" y1="45" x2="80" y2="45" stroke="#38BDF8" stroke-width="3" filter="url(#glowFilter)"/>
+    </g>
+    <!-- Hands holding tablet -->
+    <ellipse cx="560" cy="365" rx="8" ry="11" fill="url(#skinGrad1)"/>
+    <ellipse cx="655" cy="365" rx="8" ry="11" fill="url(#skinGrad1)"/>
+  </g>
+
+  <!-- Official Verified Shield Badge Overlay -->
+  <g transform="translate(680, 70)">
+    <circle cx="40" cy="40" r="36" fill="url(#robeGrad)" stroke="url(#goldGrad)" stroke-width="3"/>
+    <path d="M40 18 L60 26 L60 44 Q60 58 40 64 Q20 58 20 44 L20 26 Z" fill="url(#goldGrad)"/>
+    <polyline points="32,41 38,47 48,34" fill="none" stroke="#0B192C" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

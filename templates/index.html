@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+
+{% block title %}Official Legal Document Extractive Summarizer | LegalLens Portal{% endblock %}
+
+{% block content %}
+<!-- Official Hero Section with Moving Images & Moving Human Figures -->
+<section class="official-hero">
+    <div class="hero-overlay-grid"></div>
+    <div class="container position-relative">
+        <div class="row align-items-center g-5">
+            <!-- Left Column: Official Heading & Mission -->
+            <div class="col-lg-6">
+                <div class="hero-badge">
+                    <img src="{{ url_for('static', filename='images/emblem.svg') }}" alt="Seal" width="20" height="20">
+                    <span>DEPARTMENT OF JUDICIAL & STATUTORY COMPUTING</span>
+                </div>
+                
+                <h1 class="hero-title text-white">
+                    Official Extractive <br>
+                    <span style="color: var(--royal-gold);">Legal Document</span> Summarizer
+                </h1>
+
+                <p class="hero-lead">
+                    Transform complex legal instruments, tenancy agreements, petitions, and commercial contracts into concise, high-accuracy extractive summaries. Automatically decodes dense legalese, extracts critical risk clauses, and computes calibrated semantic accuracy.
+                </p>
+
+                <!-- Core Technologies Pill Showcase -->
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <span class="badge bg-light text-dark fw-semibold p-2"><i class="bi bi-cpu me-1 text-primary"></i>Natural Language Processing (NLP)</span>
+                    <span class="badge bg-light text-dark fw-semibold p-2"><i class="bi bi-camera me-1 text-primary"></i>Tesseract OCR Engine</span>
+                    <span class="badge bg-light text-dark fw-semibold p-2"><i class="bi bi-diagram-3 me-1 text-primary"></i>TextRank PageRank</span>
+                    <span class="badge bg-light text-dark fw-semibold p-2"><i class="bi bi-bar-chart-steps me-1 text-primary"></i>TF-IDF Vector Centroid</span>
+                    <span class="badge bg-light text-dark fw-semibold p-2"><i class="bi bi-check2-all me-1 text-success"></i>Extractive Accuracy Metric</span>
+                </div>
+
+                <!-- Call to Actions -->
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-official-gold">
+                        <i class="bi bi-file-earmark-text-fill me-2"></i>Analyze Legal Document
+                    </a>
+                    <a href="{{ url_for('guest_mode') }}" class="btn btn-official-outline">
+                        <i class="bi bi-shield-check me-2"></i>Instant Guest Mode
+                    </a>
+                    <a href="{{ url_for('compare_documents') }}" class="btn btn-outline-light">
+                        <i class="bi bi-file-diff me-2"></i>Redline Compare
+                    </a>
+                </div>
+
+                <!-- Verification Badges -->
+                <div class="d-flex align-items-center gap-4 mt-4 pt-3 border-top border-secondary text-light small opacity-85">
+                    <div><i class="bi bi-lock-fill text-warning me-1"></i>100% Confidential</div>
+                    <div><i class="bi bi-file-pdf-fill text-danger me-1"></i>Official PDF Briefs</div>
+                    <div><i class="bi bi-soundwave text-info me-1"></i>Voice Narration (TTS)</div>
+                </div>
+            </div>
+
+            <!-- Right Column: Moving Images & Moving Human Figures (Counsel & Judicial Bench) -->
+            <div class="col-lg-6">
+                <div class="moving-hero-art-wrapper">
+                    <!-- Floating Shield Badge 1 -->
+                    <div class="floating-shield-card shield-card-1 floating-pill-animated">
+                        <i class="bi bi-patch-check-fill text-success fs-5 me-2"></i>
+                        <span>Extractive Accuracy: 94.6% Certified</span>
+                    </div>
+
+                    <!-- Main Animated Moving Human Legal Team SVG -->
+                    <div class="moving-human-counsel">
+                        <img src="{{ url_for('static', filename='images/hero_legal_team.svg') }}" 
+                             alt="Moving Human Legal Counsel and Judicial Bench" 
+                             class="moving-team-image">
+                    </div>
+
+                    <!-- Floating Shield Badge 2 -->
+                    <div class="floating-shield-card shield-card-2 floating-pill-delay">
+                        <i class="bi bi-shield-lock-fill text-primary fs-5 me-2"></i>
+                        <span>Automatic Legalese Decoder Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- System Capability Metrics Bar -->
+<section class="py-4 bg-white border-bottom shadow-sm">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-md-3 col-6 border-end">
+                <div class="metric-label">Extractive Engine</div>
+                <div class="fw-bold fs-4 text-primary mt-1">TextRank + TF-IDF</div>
+                <small class="text-muted">PageRank Graph Saliency</small>
+            </div>
+            <div class="col-md-3 col-6 border-end">
+                <div class="metric-label">Document Ingestion</div>
+                <div class="fw-bold fs-4 text-dark mt-1">OCR + Digital Multi-Format</div>
+                <small class="text-muted">PDF, Scanned Images, DOCX, TXT</small>
+            </div>
+            <div class="col-md-3 col-6 border-end">
+                <div class="metric-label">Legalese Simplifier</div>
+                <div class="fw-bold fs-4 text-success mt-1">40+ Latin & Archaic Terms</div>
+                <small class="text-muted">Automatic Plain-English Decoder</small>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="metric-label">Risk & Compliance Audit</div>
+                <div class="fw-bold fs-4 text-warning mt-1">12 Essential Clauses</div>
+                <small class="text-muted">Indemnity, Termination, Liability</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Official Feature Walkthrough -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-2 rounded-pill">Comprehensive Architecture</span>
+            <h2 class="mt-2 official-heading">Core Engineering Modules</h2>
+            <p class="text-muted max-w-700 mx-auto">
+                Purpose-built to overcome lengthy, archaic legal phrasing using extractive graph rankings and automated covenant classification.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Feature 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="official-card h-100 p-4">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="bg-primary text-white rounded p-3">
+                            <i class="bi bi-diagram-3-fill fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">Dual-Engine Summarization</h5>
+                            <span class="badge bg-light text-dark border">TextRank & TF-IDF</span>
+                        </div>
+                    </div>
+                    <p class="text-secondary small">
+                        Builds an interconnected sentence-similarity graph. Uses PageRank power iterations to extract central legal sentences while pruning boilerplate noise without altering author intent.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="official-card h-100 p-4">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="bg-warning text-dark rounded p-3">
+                            <i class="bi bi-camera-fill fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">Scanned Document OCR</h5>
+                            <span class="badge bg-light text-dark border">Tesseract + PyMuPDF</span>
+                        </div>
+                    </div>
+                    <p class="text-secondary small">
+                        Supports native digital PDFs, scanned agreements, and high-resolution images of physical legal affidavits, extracting clean digitized text streams for immediate NLP summarization.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="official-card h-100 p-4">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="bg-success text-white rounded p-3">
+                            <i class="bi bi-translate fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">Legalese Decoder</h5>
+                            <span class="badge bg-light text-dark border">Plain-English Translations</span>
+                        </div>
+                    </div>
+                    <p class="text-secondary small">
+                        Detects confusing Latin terms like <i>mutatis mutandis, indemnification, ultra vires</i>, and <i>quantum meruit</i>, providing instant layman interpretations with context snippet highlights.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="official-card h-100 p-4">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="bg-danger text-white rounded p-3">
+                            <i class="bi bi-shield-exclamation fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">Clause & Risk Audit</h5>
+                            <span class="badge bg-light text-dark border">12 Legal Covenants</span>
+                        </div>
+                    </div>
+                    <p class="text-secondary small">
+                        Automatically locates Confidentiality, Indemnification, Termination, Limitation of Liability, and Payment clauses, auditing one-sided terms and outputting a Contract Risk Score.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="official-card h-100 p-4">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="bg-info text-white rounded p-3">
+                            <i class="bi bi-speedometer fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">Extractive Accuracy Meter</h5>
+                            <span class="badge bg-light text-dark border">Cosine & ROUGE-L</span>
+                        </div>
+                    </div>
+                    <p class="text-secondary small">
+                        Measures semantic fidelity between the extracted summary and the full document via high-dimensional vector similarity, displaying a calibrated Extractive Accuracy percentage.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Feature 6 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="official-card h-100 p-4">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="bg-dark text-white rounded p-3">
+                            <i class="bi bi-soundwave fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">TTS Voice & PDF Export</h5>
+                            <span class="badge bg-light text-dark border">Audio & Printable Brief</span>
+                        </div>
+                    </div>
+                    <p class="text-secondary small">
+                        Listen to the executive summary via built-in Web Speech audio narration or download an official formatted PDF Legal Brief with institutional headers ready for client delivery.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Official Call to Action Section -->
+<section class="py-5 bg-light border-top border-bottom">
+    <div class="container">
+        <div class="row align-items-center justify-content-between g-4">
+            <div class="col-lg-8">
+                <h3 class="official-heading mb-2">Ready to Process Your Legal Instruments?</h3>
+                <p class="text-secondary mb-0">
+                    Access the portal as a verified practitioner or enter immediately using Instant Guest Mode.
+                </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{{ url_for('dashboard') }}" class="btn btn-official-navy me-2">
+                    <i class="bi bi-arrow-right-circle-fill me-1"></i>Open Workroom
+                </a>
+                <a href="{{ url_for('guest_mode') }}" class="btn btn-official-gold">
+                    <i class="bi bi-lightning-fill me-1"></i>Guest Access
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,361 @@
+{% extends 'base.html' %}
+
+{% block title %}Official Analysis & Extractive Summary | LegalLens{% endblock %}
+
+{% block content %}
+<style>
+    .critical-clause-underline {
+        text-decoration-line: underline;
+        text-decoration-color: #dc3545;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+        text-decoration-skip-ink: none;
+        font-weight: 600;
+    }
+    .critical-clause-legend {
+        font-size: .82rem;
+        color: #842029;
+        background: #fff5f5;
+        border: 1px solid #f1b0b7;
+        border-radius: .4rem;
+        padding: .35rem .6rem;
+    }
+</style>
+<div class="container py-4">
+    <!-- Header Banner & Action Ribbon -->
+    <div class="official-card mb-4 bg-white shadow-sm border-0">
+        <div class="p-4 d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
+            <div>
+                <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
+                    <span class="badge bg-dark text-white"><i class="bi bi-file-earmark-check me-1"></i>{{ result.doc_type }}</span>
+                    <span class="badge bg-secondary"><i class="bi bi-gear-fill me-1"></i>{{ result.method_used }}</span>
+                    <span class="badge bg-primary"><i class="bi bi-cpu-fill me-1"></i>{{ result.algorithm_used }}</span>
+                </div>
+                <h3 class="official-heading mb-1">{{ result.filename }}</h3>
+                <p class="text-secondary small mb-0">
+                    Extractive Legal Brief compiled via NLP, OCR, TextRank PageRank, and TF-IDF Semantic Matrices.
+                </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                {% if result.record_id %}
+                <a href="{{ url_for('download_summary_pdf', summary_id=result.record_id) }}" class="btn btn-danger btn-sm fw-semibold shadow-sm">
+                    <i class="bi bi-file-earmark-pdf-fill me-1"></i>Export Official PDF Brief
+                </a>
+                {% endif %}
+                <button type="button" class="btn btn-outline-dark btn-sm fw-semibold" onclick="copySummaryToClipboard()" id="copyBtnText">
+                    <i class="bi bi-clipboard-check me-1"></i>Copy Summary
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm fw-semibold" onclick="window.print()">
+                    <i class="bi bi-printer me-1"></i>Print
+                </button>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-official-gold btn-sm fw-semibold">
+                    <i class="bi bi-plus-circle me-1"></i>New Analysis
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Scientific Analytics Metrics Bar -->
+    <div class="row g-3 mb-4">
+        <!-- 1. Extractive Accuracy Score -->
+        <div class="col-lg-3 col-md-6">
+            <div class="metric-tile green-border h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="metric-label">Extractive Accuracy</span>
+                    <i class="bi bi-patch-check-fill text-success fs-5"></i>
+                </div>
+                <div class="metric-value text-success" id="accuracyCounter" data-target="{{ result.accuracy_score }}">
+                    {{ result.accuracy_score }}%
+                </div>
+                <div class="small text-muted">
+                    <i class="bi bi-arrow-up-right text-success me-1"></i>Cosine Semantic Vector Fit
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Compression Ratio -->
+        <div class="col-lg-3 col-md-6">
+            <div class="metric-tile gold-border h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="metric-label">Compression Ratio</span>
+                    <i class="bi bi-arrows-collapse text-warning fs-5"></i>
+                </div>
+                <div class="metric-value text-dark">
+                    {{ result.compression_ratio }}%
+                </div>
+                <div class="small text-muted">
+                    {{ result.original_words }} &rarr; {{ result.summary_words }} words (Saved ~{{ result.time_saved_minutes }} mins)
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Contract Risk Safety Index -->
+        <div class="col-lg-3 col-md-6">
+            <div class="metric-tile {% if result.risk_analysis.level == 'Critical' or result.risk_analysis.level == 'High' %}red-border{% else %}green-border{% endif %} h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="metric-label">Risk Classification</span>
+                    <i class="bi bi-shield-exclamation text-primary fs-5"></i>
+                </div>
+                <div class="metric-value {% if result.risk_analysis.level == 'Critical' or result.risk_analysis.level == 'High' %}text-danger{% else %}text-primary{% endif %}">
+                    {{ result.risk_analysis.level }}
+                </div>
+                <div class="small text-muted">
+                    Safety Score: <strong>{{ result.risk_analysis.safety_index }}/100</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Readability Grade Level -->
+        <div class="col-lg-3 col-md-6">
+            <div class="metric-tile h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="metric-label">Readability Level</span>
+                    <i class="bi bi-book-half text-secondary fs-5"></i>
+                </div>
+                <div class="metric-value text-dark" style="font-size: 1.8rem;">
+                    Grade {{ result.readability_summary.grade_level }}
+                </div>
+                <div class="small text-muted">
+                    {{ result.readability_summary.difficulty }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Web Speech Audio Narrator Widget -->
+    <div class="audio-narrator-widget mb-4" id="audioWidget">
+        <div class="d-flex align-items-center gap-3">
+            <div class="bg-white text-dark rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                <i class="bi bi-broadcast fs-5 text-primary"></i>
+            </div>
+            <div>
+                <h6 class="mb-0 text-white fw-bold">Legal Brief Audio Narrator</h6>
+                <small class="text-light opacity-75" id="ttsStatusText">
+                    <span class="badge bg-secondary"><i class="bi bi-headphones me-1"></i>Audio Voice Ready</span>
+                </small>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+            <button type="button" class="btn btn-outline-light btn-sm" id="playTtsBtn" title="Play Narration">
+                <i class="bi bi-play-fill me-1"></i>Play Summary
+            </button>
+            <button type="button" class="btn btn-outline-light btn-sm" id="pauseTtsBtn" title="Pause">
+                <i class="bi bi-pause-fill"></i>
+            </button>
+            <button type="button" class="btn btn-outline-light btn-sm" id="stopTtsBtn" title="Stop">
+                <i class="bi bi-stop-fill"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Main Extractive Summary Content Column -->
+        <div class="col-lg-8">
+            <!-- 1. Executive Extractive Summary Card -->
+            <div class="official-card mb-4">
+                <div class="official-card-header">
+                    <h5><i class="bi bi-card-text text-primary"></i> Executive Extractive Summary</h5>
+                    <span class="badge bg-dark">{{ result.summary_sentence_count }} Salient Sentences Extracted</span>
+                </div>
+                <div class="official-card-body">
+                    <div class="critical-clause-legend mb-3">
+                        <i class="bi bi-underline me-1"></i>
+                        Red underline indicates a critical legal clause identified in the document.
+                    </div>
+                    <div id="summaryContentText">
+                        {% if result.summary_sentences %}
+                            {% for sent in result.summary_sentences %}
+                                {% set ns = namespace(is_critical=false) %}
+                                {% for clause_name, info in result.clauses.items() %}
+                                    {% if sent in info.sentences %}
+                                        {% set ns.is_critical = true %}
+                                    {% endif %}
+                                {% endfor %}
+                                <div class="summary-sentence-box">
+                                    <span class="text-primary fw-bold me-2">{{ loop.index }}.</span>
+                                    {% if ns.is_critical %}
+                                        <span class="critical-clause-underline">{{ sent }}</span>
+                                    {% else %}
+                                        {{ sent }}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="mb-0">{{ result.summary_text }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Legalese Decoder & Complex Terminology Simplifier -->
+            <div class="official-card mb-4">
+                <div class="official-card-header">
+                    <h5><i class="bi bi-translate text-primary"></i> Legalese Decoder & Complex Terminology</h5>
+                    <span class="badge bg-success">{{ result.legalese|length }} Terms Decoded</span>
+                </div>
+                <div class="official-card-body p-0">
+                    {% if result.legalese %}
+                        <div class="table-responsive">
+                            <table class="table table-official mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 25%;">Legal Term</th>
+                                        <th style="width: 35%;">Plain-English Meaning</th>
+                                        <th style="width: 40%;">Context in Document</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in result.legalese %}
+                                    <tr>
+                                        <td>
+                                            <strong class="text-dark fs-6">{{ item.term }}</strong>
+                                            <small class="d-block text-muted">{{ item.occurrences }} occurrences</small>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle mb-1">Plain Meaning:</span>
+                                            <div class="small fw-semibold text-dark">{{ item.plain }}</div>
+                                            <small class="text-muted d-block mt-1"><em>Formal: {{ item.formal }}</em></small>
+                                        </td>
+                                        <td>
+                                            <small class="text-secondary font-monospace bg-light p-2 rounded d-block border">
+                                                {{ item.context_snippet }}
+                                            </small>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="p-4 text-center text-muted">
+                            <i class="bi bi-check-circle text-success fs-3 mb-2 d-block"></i>
+                            No dense Latin legal terms detected in this instrument. Phrasing is standard statutory prose.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- 3. Critical Legal Clauses & Covenant Classification -->
+            <div class="official-card mb-4">
+                <div class="official-card-header">
+                    <h5><i class="bi bi-shield-check text-primary"></i> Critical Legal Clauses Identified</h5>
+                    <span class="badge bg-primary">{{ result.clauses|length }} Clauses Mapped</span>
+                </div>
+                <div class="official-card-body">
+                    {% if result.clauses %}
+                        <div class="row g-3">
+                            {% for clause_name, info in result.clauses.items() %}
+                            <div class="col-12">
+                                <div class="border rounded p-3 bg-light">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="bi bi-{{ info.icon }} text-primary fs-5"></i>
+                                            <strong class="text-dark">{{ clause_name }}</strong>
+                                        </div>
+                                        <span class="badge bg-{{ info.badge_color }}">{{ info.count }} matches</span>
+                                    </div>
+                                    <p class="small text-muted mb-2">{{ info.description }}</p>
+                                    <ul class="list-unstyled mb-0 small">
+                                        {% for s in info.sentences %}
+                                        <li class="mb-1 text-dark">
+                                            <i class="bi bi-arrow-right-short text-primary"></i> <i>"{{ s }}"</i>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="p-3 text-muted text-center">
+                            No specific standard contract covenants detected.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Risk Meter, Red Flags & Audit Trail -->
+        <div class="col-lg-4">
+            <!-- Risk & Obligation Audit Card -->
+            <div class="official-card mb-4">
+                <div class="official-card-header">
+                    <h5><i class="bi bi-exclamation-triangle text-warning"></i> Contract Risk Audit</h5>
+                </div>
+                <div class="official-card-body">
+                    <div class="text-center mb-3">
+                        <div class="display-6 fw-bold {% if result.risk_analysis.level == 'Critical' or result.risk_analysis.level == 'High' %}text-danger{% else %}text-success{% endif %}">
+                            {{ result.risk_analysis.score }}/100
+                        </div>
+                        <span class="badge {% if result.risk_analysis.level == 'Critical' or result.risk_analysis.level == 'High' %}bg-danger{% else %}bg-success{% endif %} fs-6 px-3 py-1">
+                            {{ result.risk_analysis.level }} Risk Level
+                        </span>
+                    </div>
+
+                    {% if result.risk_analysis.flags %}
+                        <h6 class="fw-bold small text-uppercase text-secondary mb-2">Red-Flag Covenants Detected:</h6>
+                        {% for flag in result.risk_analysis.flags %}
+                        <div class="alert alert-{% if flag.level == 'High' %}danger{% else %}warning{% endif %} p-2 mb-2 small">
+                            <strong class="d-block"><i class="bi bi-exclamation-circle-fill me-1"></i>{{ flag.title }}</strong>
+                            {{ flag.desc }}
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="alert alert-success p-3 small mb-0">
+                            <i class="bi bi-check-circle-fill me-1"></i>No severe unilateral risk obligations or missing caps detected.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Document Intelligence Metadata -->
+            <div class="official-card mb-4">
+                <div class="official-card-header">
+                    <h5><i class="bi bi-info-square text-primary"></i> Document Properties</h5>
+                </div>
+                <div class="official-card-body p-0">
+                    <ul class="list-group list-group-flush small">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span class="text-muted">Total Sentences:</span>
+                            <strong>{{ result.all_sentence_count }}</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span class="text-muted">Extracted Sentences:</span>
+                            <strong>{{ result.summary_sentence_count }}</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span class="text-muted">Original Word Count:</span>
+                            <strong>{{ result.original_words }} words</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span class="text-muted">Summary Word Count:</span>
+                            <strong>{{ result.summary_words }} words</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span class="text-muted">Reading Time Saved:</span>
+                            <strong class="text-success">~{{ result.time_saved_minutes }} minutes</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span class="text-muted">Extraction Method:</span>
+                            <strong>{{ result.method_used }}</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Next Actions -->
+            <div class="d-grid gap-2">
+                <a href="{{ url_for('dashboard') }}" class="btn btn-official-navy">
+                    <i class="bi bi-arrow-left me-1"></i>Process Another Document
+                </a>
+                <a href="{{ url_for('compare_documents') }}" class="btn btn-outline-dark">
+                    <i class="bi bi-file-diff me-1"></i>Compare with Another Version
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,199 @@
+/* ==========================================================================
+   OFFICIAL LEGAL PORTAL - ADVANCED KEYFRAME ANIMATIONS
+   Domain: Moving Images & Moving Human Figures (Counsel & Judicial Bench)
+   ========================================================================== */
+
+/* 1. Moving Human Legal Counsel Floating Animation */
+@keyframes floatCounsel {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-12px) rotate(0.5deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+.moving-human-counsel {
+    animation: floatCounsel 6s ease-in-out infinite;
+    transform-origin: center bottom;
+    transition: filter 0.3s ease;
+}
+
+.moving-human-counsel:hover {
+    filter: drop-shadow(0 20px 35px rgba(212, 175, 55, 0.45));
+}
+
+/* 2. Secondary Human Figure Sway */
+@keyframes humanSwayRight {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-8px) rotate(-1deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+.moving-human-judge {
+    animation: humanSwayRight 7s ease-in-out infinite;
+    animation-delay: 1s;
+}
+
+/* 3. Scales of Justice Realistic Oscillation */
+@keyframes scalesOscillate {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(4deg);
+    }
+    75% {
+        transform: rotate(-4deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.moving-scales-icon {
+    display: inline-block;
+    animation: scalesOscillate 5s ease-in-out infinite;
+    transform-origin: center 20%;
+}
+
+/* 4. Judicial Gavel Authoritative Strike */
+@keyframes gavelStrike {
+    0%, 80%, 100% {
+        transform: rotate(0deg);
+    }
+    85% {
+        transform: rotate(-25deg);
+    }
+    90% {
+        transform: rotate(10deg);
+    }
+    93% {
+        transform: rotate(-5deg);
+    }
+    95% {
+        transform: rotate(0deg);
+    }
+}
+
+.moving-gavel {
+    display: inline-block;
+    animation: gavelStrike 8s ease-in-out infinite;
+    transform-origin: 80% 80%;
+}
+
+/* 5. Document OCR Laser Scanning Beam */
+@keyframes docLaserScan {
+    0% {
+        top: 0%;
+        opacity: 0.8;
+    }
+    50% {
+        top: 85%;
+        opacity: 1;
+    }
+    100% {
+        top: 0%;
+        opacity: 0.8;
+    }
+}
+
+.ocr-scanner-box {
+    position: relative;
+    overflow: hidden;
+}
+
+.ocr-scanner-beam {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, #D4AF37 20%, #00d2ff 50%, #D4AF37 80%, transparent 100%);
+    box-shadow: 0 0 15px #00d2ff, 0 0 8px #D4AF37;
+    animation: docLaserScan 3.5s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* 6. Floating Status Pill Badge */
+@keyframes floatPill {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.floating-pill-animated {
+    animation: floatPill 4.5s ease-in-out infinite;
+}
+
+.floating-pill-delay {
+    animation: floatPill 5s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+/* 7. Shimmer Security Ribbon */
+@keyframes goldShimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.gold-shimmer-badge {
+    background: linear-gradient(90deg, rgba(212,175,55,0.2) 0%, rgba(255,255,255,0.6) 50%, rgba(212,175,55,0.2) 100%);
+    background-size: 200% 100%;
+    animation: goldShimmer 3s infinite linear;
+}
+
+/* 8. Pulsing Official Seal */
+@keyframes sealPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+    }
+    70% {
+        transform: scale(1.03);
+        box-shadow: 0 0 0 12px rgba(212, 175, 55, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+    }
+}
+
+.pulse-official-seal {
+    animation: sealPulse 3s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+/* 9. Gentle Entrance Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.7s ease-out forwards;
+}

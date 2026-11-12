@@ -1,0 +1,461 @@
+/* ==========================================================================
+   OFFICIAL LEGAL PORTAL - MAIN STYLESHEET
+   Domain: Legal Document Extractive Summarizer & Compliance Suite
+   Theme: Official National & Judicial Portal (Navy, Gold, Crisp Slate)
+   ========================================================================== */
+
+:root {
+    --primary-navy: #0B192C;
+    --secondary-navy: #1E3E62;
+    --accent-blue: #0066CC;
+    --royal-gold: #D4AF37;
+    --rich-gold: #C5A880;
+    --bg-light: #F8FAFC;
+    --card-bg: #FFFFFF;
+    --text-primary: #0F172A;
+    --text-muted: #64748B;
+    --border-subtle: #E2E8F0;
+    --official-green: #15803D;
+    --official-red: #B91C1C;
+    --official-warning: #B45309;
+    --font-heading: 'Merriweather', 'Georgia', serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 12px rgba(11, 25, 44, 0.08);
+    --shadow-lg: 0 10px 25px rgba(11, 25, 44, 0.12);
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-light);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .official-heading {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--primary-navy);
+}
+
+/* ==========================================================================
+   OFFICIAL TOP BAR & HEADER BANNER
+   ========================================================================== */
+
+.official-top-bar {
+    background: #060E18;
+    color: #E2E8F0;
+    font-size: 0.8rem;
+    padding: 6px 0;
+    border-bottom: 2px solid var(--royal-gold);
+}
+
+.official-top-bar a {
+    color: #CBD5E1;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.official-top-bar a:hover {
+    color: var(--royal-gold);
+}
+
+.official-navbar {
+    background-color: var(--primary-navy) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 12px 0;
+}
+
+.navbar-brand {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: #FFFFFF !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-brand span.highlight {
+    color: var(--royal-gold);
+}
+
+.official-seal-mini {
+    width: 36px;
+    height: 36px;
+    filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.4));
+}
+
+.nav-link {
+    color: #E2E8F0 !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 8px 16px !important;
+    border-radius: 6px;
+    transition: all 0.25s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #FFFFFF !important;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link.guest-badge {
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid var(--royal-gold);
+    color: var(--royal-gold) !important;
+}
+
+/* ==========================================================================
+   HERO SECTION WITH MOVING LEGAL COUNSEL
+   ========================================================================== */
+
+.official-hero {
+    background: linear-gradient(135deg, #0B192C 0%, #1E3E62 60%, #152A42 100%);
+    color: #FFFFFF;
+    position: relative;
+    padding: 70px 0 60px 0;
+    overflow: hidden;
+}
+
+.hero-overlay-grid {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: radial-gradient(rgba(212, 175, 55, 0.12) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+}
+
+.hero-badge {
+    background: rgba(212, 175, 55, 0.2);
+    border: 1px solid var(--royal-gold);
+    color: #F8FAFC;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 20px;
+}
+
+.hero-lead {
+    font-size: 1.15rem;
+    color: #CBD5E1;
+    max-width: 620px;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+/* Moving Images Container */
+.moving-hero-art-wrapper {
+    position: relative;
+    text-align: center;
+    padding: 20px;
+}
+
+.moving-team-image {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.45));
+}
+
+.floating-shield-card {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    color: var(--primary-navy);
+    padding: 10px 18px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-left: 4px solid var(--royal-gold);
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.shield-card-1 {
+    top: 15%;
+    left: -10px;
+}
+
+.shield-card-2 {
+    bottom: 20%;
+    right: -10px;
+}
+
+/* ==========================================================================
+   BUTTONS & BADGES
+   ========================================================================== */
+
+.btn-official-gold {
+    background: linear-gradient(135deg, #D4AF37 0%, #B8972E 100%);
+    color: #0B192C !important;
+    font-weight: 700;
+    border: none;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+    padding: 12px 26px;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+}
+
+.btn-official-gold:hover {
+    background: linear-gradient(135deg, #E6C252 0%, #D4AF37 100%);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+    transform: translateY(-2px);
+}
+
+.btn-official-navy {
+    background-color: var(--primary-navy);
+    color: #FFFFFF !important;
+    font-weight: 600;
+    border: 1px solid #1E3E62;
+    padding: 12px 26px;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+}
+
+.btn-official-navy:hover {
+    background-color: var(--secondary-navy);
+    color: #FFFFFF !important;
+    transform: translateY(-2px);
+}
+
+.btn-official-outline {
+    background-color: transparent;
+    color: #FFFFFF !important;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    padding: 11px 24px;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+}
+
+.btn-official-outline:hover {
+    background-color: #FFFFFF;
+    color: var(--primary-navy) !important;
+    border-color: #FFFFFF;
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   CARDS & DASHBOARD WORKROOM
+   ========================================================================== */
+
+.official-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.official-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: #CBD5E1;
+}
+
+.official-card-header {
+    background: linear-gradient(90deg, #F8FAFC 0%, #EDF2F7 100%);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.official-card-header h5 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-navy);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.official-card-body {
+    padding: 24px;
+}
+
+/* Metric Display Cards */
+.metric-tile {
+    background: #FFFFFF;
+    border-radius: 10px;
+    border: 1px solid var(--border-subtle);
+    padding: 18px;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+}
+
+.metric-tile::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--primary-navy);
+}
+
+.metric-tile.gold-border::before {
+    background: var(--royal-gold);
+}
+
+.metric-tile.green-border::before {
+    background: var(--official-green);
+}
+
+.metric-tile.red-border::before {
+    background: var(--official-red);
+}
+
+.metric-value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    font-family: var(--font-heading);
+    color: var(--primary-navy);
+    line-height: 1.1;
+    margin: 6px 0;
+}
+
+.metric-label {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+}
+
+/* Dropzone & Upload Box */
+.upload-dropzone {
+    border: 2px dashed #94A3B8;
+    background: #F8FAFC;
+    border-radius: 12px;
+    padding: 35px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.upload-dropzone:hover, .upload-dropzone.drag-active {
+    background: #EFF6FF;
+    border-color: var(--accent-blue);
+}
+
+.upload-icon {
+    font-size: 3rem;
+    color: var(--secondary-navy);
+    margin-bottom: 12px;
+}
+
+/* Legalese Table & Clause Highlights */
+.table-official th {
+    background-color: #0B192C;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 16px;
+}
+
+.table-official td {
+    padding: 14px 16px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.table-official tr:hover td {
+    background-color: #F1F5F9;
+}
+
+.clause-badge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.summary-sentence-box {
+    background: #FFFFFF;
+    border-left: 4px solid var(--secondary-navy);
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    font-size: 1rem;
+    line-height: 1.7;
+    transition: all 0.2s;
+}
+
+.summary-sentence-box:hover {
+    border-left-color: var(--royal-gold);
+    background: #FDFDFD;
+    transform: translateX(3px);
+}
+
+/* Audio Player Widget */
+.audio-narrator-widget {
+    background: linear-gradient(135deg, #1E3E62 0%, #0B192C 100%);
+    color: #FFFFFF;
+    border-radius: 10px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-md);
+}
+
+/* ==========================================================================
+   OFFICIAL FOOTER
+   ========================================================================== */
+
+.official-footer {
+    background-color: #060E18;
+    color: #94A3B8;
+    padding: 50px 0 25px 0;
+    border-top: 3px solid var(--royal-gold);
+    font-size: 0.9rem;
+}
+
+.footer-brand-title {
+    color: #FFFFFF;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+}
+
+.footer-link {
+    color: #CBD5E1;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 8px;
+    transition: color 0.2s;
+}
+
+.footer-link:hover {
+    color: var(--royal-gold);
+}
+
+.footer-bottom {
+    border-top: 1px solid #1E293B;
+    margin-top: 35px;
+    padding-top: 20px;
+    font-size: 0.8rem;
+    text-align: center;
+    color: #64748B;
+}

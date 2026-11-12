@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Methodology & System Architecture | LegalLens{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Header -->
+    <div class="official-card mb-4 bg-white shadow-sm border-0">
+        <div class="p-4 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+            <div>
+                <h3 class="official-heading mb-1"><i class="bi bi-diagram-3 text-primary me-2"></i>System Architecture & Research Methodology</h3>
+                <p class="text-secondary small mb-0">
+                    Academic Project BCS685 &bull; Legal Document Extractive Summarizer &bull; Department of Computer Science and Engineering
+                </p>
+            </div>
+            <div>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-official-gold btn-sm">
+                    <i class="bi bi-play-circle me-1"></i>Launch Application
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technical Pillars -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="official-card h-100 p-4">
+                <h5 class="fw-bold text-primary mb-3"><i class="bi bi-graph-up me-2"></i>1. TextRank PageRank Algorithm</h5>
+                <p class="small text-secondary">
+                    TextRank models the document as a fully connected, weighted graph \(G = (V, E)\), where each vertex \(V_i\) corresponds to a distinct legal sentence, and edge weight \(W_{ij}\) represents the cosine similarity between sentence vectors:
+                </p>
+                <div class="bg-light p-3 rounded font-monospace small mb-3 border">
+                    PR(S_i) = (1 - d) + d &times; &sum; [ W_ji / &sum; W_jk &times; PR(S_j) ]
+                </div>
+                <p class="small text-secondary mb-0">
+                    Where \(d = 0.85\) is the damping factor. Sentences with the highest centrality eigenvector scores represent key operative covenants and definitions.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="official-card h-100 p-4">
+                <h5 class="fw-bold text-primary mb-3"><i class="bi bi-bar-chart me-2"></i>2. TF-IDF Centroid Saliency</h5>
+                <p class="small text-secondary">
+                    Term Frequency - Inverse Document Frequency calculates token specificity across statutory text, down-weighting standard legalese boilerplate:
+                </p>
+                <div class="bg-light p-3 rounded font-monospace small mb-3 border">
+                    TF-IDF(t, d) = TF(t, d) &times; ln[ (1 + N) / (1 + DF(t)) ] + 1
+                </div>
+                <p class="small text-secondary mb-0">
+                    A document centroid vector is computed, and sentences closest in cosine distance to this mean vector receive highest informational retention scores.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="official-card h-100 p-4">
+                <h5 class="fw-bold text-primary mb-3"><i class="bi bi-camera me-2"></i>3. OCR Multi-Format Pipeline</h5>
+                <p class="small text-secondary">
+                    Scanned PDF agreements and camera captures of affidavits are processed through a multi-stage OCR pipeline:
+                </p>
+                <ul class="small text-secondary mb-0">
+                    <li>PyMuPDF and pdfplumber examine native vector text streams.</li>
+                    <li>If scanned or rasterized, Tesseract OCR performs page image rendering at 200 DPI with grayscale thresholding.</li>
+                    <li>Recognized tokens pass through abbreviation shield filters (protecting citations like <em>Sec., Art., v., Ltd.</em>).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="official-card h-100 p-4">
+                <h5 class="fw-bold text-primary mb-3"><i class="bi bi-check2-all me-2"></i>4. Extractive Accuracy Calibration</h5>
+                <p class="small text-secondary">
+                    Rather than relying solely on subjective human evaluation, our engine computes a composite semantic accuracy metric:
+                </p>
+                <div class="bg-light p-3 rounded font-monospace small mb-3 border">
+                    Accuracy = [ 0.65 &times; CosSim(Doc_TFIDF, Sum_TFIDF) + 0.35 &times; TokenRecall ] &times; 100%
+                </div>
+                <p class="small text-secondary mb-0">
+                    This rigorously guarantees that the extracted clauses capture the essential statutory substance of the original instrument without omission.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

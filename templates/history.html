@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Audit History Ledger | LegalLens Portal{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="official-card mb-4 bg-white shadow-sm border-0">
+        <div class="p-4 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+            <div>
+                <h3 class="official-heading mb-1"><i class="bi bi-clock-history text-primary me-2"></i>Document Audit Ledger</h3>
+                <p class="text-secondary small mb-0">
+                    Comprehensive log of all processed legal instruments, extractive summaries, and verified accuracy scores.
+                </p>
+            </div>
+            <div>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-official-gold btn-sm">
+                    <i class="bi bi-plus-circle me-1"></i>New Summarization
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="official-card">
+        <div class="official-card-body p-0">
+            {% if summaries %}
+            <div class="table-responsive">
+                <table class="table table-official table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Document Title</th>
+                            <th>Date Processed</th>
+                            <th>Extractive Accuracy</th>
+                            <th>Compression</th>
+                            <th>Risk Level</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in summaries %}
+                        <tr>
+                            <td>
+                                <strong class="text-dark d-block">{{ s.filename }}</strong>
+                                <span class="badge bg-light text-secondary border">{{ s.doc_type }}</span>
+                                <small class="text-muted ms-1">{{ s.original_words }} &rarr; {{ s.summary_words }} words</small>
+                            </td>
+                            <td class="text-muted small">
+                                {{ s.created_at }}
+                            </td>
+                            <td>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle fs-6">
+                                    <i class="bi bi-patch-check-fill me-1"></i>{{ s.accuracy_score }}%
+                                </span>
+                            </td>
+                            <td>
+                                <span class="fw-semibold text-dark">{{ s.compression_ratio }}%</span>
+                                <small class="text-muted d-block">Saved</small>
+                            </td>
+                            <td>
+                                <span class="badge {% if s.risk_level == 'Critical' or s.risk_level == 'High' %}bg-danger{% elif s.risk_level == 'Moderate' %}bg-warning text-dark{% else %}bg-success{% endif %}">
+                                    {{ s.risk_level }}
+                                </span>
+                            </td>
+                            <td class="text-end">
+                                <div class="btn-group btn-group-sm">
+                                    <a href="{{ url_for('view_summary', summary_id=s.id) }}" class="btn btn-outline-primary" title="View Summary">
+                                        <i class="bi bi-eye-fill"></i> View
+                                    </a>
+                                    <a href="{{ url_for('download_summary_pdf', summary_id=s.id) }}" class="btn btn-outline-danger" title="Download PDF Brief">
+                                        <i class="bi bi-file-earmark-pdf-fill"></i>
+                                    </a>
+                                    <form action="{{ url_for('delete_summary_route', summary_id=s.id) }}" method="POST" class="d-inline" onsubmit="return confirm('Expunge this legal summary record?');">
+                                        <button type="submit" class="btn btn-outline-secondary" title="Delete Record">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-5">
+                <i class="bi bi-journal-x fs-1 text-muted d-block mb-3"></i>
+                <h5 class="text-secondary">No Legal Summaries Recorded Yet</h5>
+                <p class="text-muted small mb-3">Submit your first agreement, lease, or petition in the workroom to populate this ledger.</p>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-official-navy btn-sm">
+                    <i class="bi bi-arrow-right-circle-fill me-1"></i>Open Workroom
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

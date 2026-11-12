@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+{% block title %}Contract Redline & Comparison Audit | LegalLens{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Header -->
+    <div class="official-card mb-4 bg-white shadow-sm border-0">
+        <div class="p-4 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+            <div>
+                <h3 class="official-heading mb-1"><i class="bi bi-file-diff text-primary me-2"></i>Contract Redline & Comparison Audit</h3>
+                <p class="text-secondary small mb-0">
+                    Compare two legal instruments side-by-side (e.g. Master Agreement vs Counterproposal, or Version 1 vs Version 2) to identify clause modifications and risk deltas.
+                </p>
+            </div>
+            <div>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-arrow-left me-1"></i>Back to Single Summarizer
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparison Input Form -->
+    <form action="{{ url_for('compare_documents') }}" method="POST" enctype="multipart/form-data">
+        <div class="row g-4 mb-4">
+            <!-- Document Version 1 -->
+            <div class="col-lg-6">
+                <div class="official-card h-100">
+                    <div class="official-card-header bg-dark text-white">
+                        <h5 class="text-white mb-0"><i class="bi bi-file-earmark-text text-warning me-2"></i>Instrument 1 (Original / Baseline Draft)</h5>
+                    </div>
+                    <div class="official-card-body">
+                        <label class="form-label fw-semibold" for="doc1_file">Upload original document</label>
+                        <input class="form-control mb-2" type="file" id="doc1_file" name="doc1_file"
+                               accept=".pdf,.docx,.txt,.png,.jpg,.jpeg,.tiff,.bmp">
+                        <div class="form-text mb-3">Supported: PDF, DOCX, TXT, PNG, JPG and TIFF. Maximum combined request size: 32 MB.</div>
+                        <div class="text-center text-muted small fw-bold mb-2">— OR PASTE TEXT BELOW —</div>
+                        <textarea class="form-control font-monospace small" name="doc1_text" rows="10" placeholder="Paste full text of original contract draft here...">{{ doc1_text }}</textarea>
+                        <div class="form-text">If you select a file, its extracted text will be used instead of pasted text.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Document Version 2 -->
+            <div class="col-lg-6">
+                <div class="official-card h-100">
+                    <div class="official-card-header bg-primary text-white">
+                        <h5 class="text-white mb-0"><i class="bi bi-file-earmark-plus text-white me-2"></i>Instrument 2 (Revised / Counterproposal Draft)</h5>
+                    </div>
+                    <div class="official-card-body">
+                        <label class="form-label fw-semibold" for="doc2_file">Upload revised document</label>
+                        <input class="form-control mb-2" type="file" id="doc2_file" name="doc2_file"
+                               accept=".pdf,.docx,.txt,.png,.jpg,.jpeg,.tiff,.bmp">
+                        <div class="form-text mb-3">Supported: PDF, DOCX, TXT, PNG, JPG and TIFF. Maximum combined request size: 32 MB.</div>
+                        <div class="text-center text-muted small fw-bold mb-2">— OR PASTE TEXT BELOW —</div>
+                        <textarea class="form-control font-monospace small" name="doc2_text" rows="10" placeholder="Paste full text of counterproposal or revised amendment here...">{{ doc2_text }}</textarea>
+                        <div class="form-text">If you select a file, its extracted text will be used instead of pasted text.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-5">
+            <button type="submit" class="btn btn-official-gold px-5 py-3 fw-bold shadow">
+                <i class="bi bi-arrow-left-right me-2"></i>Execute Comparative Clause & Risk Audit
+            </button>
+        </div>
+    </form>
+
+    <!-- Comparison Results View -->
+    {% if comparison %}
+    <div class="official-card mb-4">
+        <div class="official-card-header">
+            <h5><i class="bi bi-clipboard2-pulse text-primary"></i> Comparative Audit Findings</h5>
+            <span class="badge bg-primary">Risk Delta: {{ comparison.risk_delta }} pts</span>
+        </div>
+        <div class="official-card-body">
+            <!-- Clause Differential Summary -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-3">
+                    <div class="border rounded p-3 bg-light text-center h-100">
+                        <div class="text-muted small text-uppercase fw-bold">Unchanged Clauses</div>
+                        <div class="fs-3 fw-bold text-success">{{ comparison.counts.shared }}</div>
+                        <small class="text-muted">Present in both instruments</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="border rounded p-3 bg-light text-center h-100">
+                        <div class="text-muted small text-uppercase fw-bold">Modified Clauses</div>
+                        <div class="fs-3 fw-bold text-primary">{{ comparison.counts.modified }}</div>
+                        <small class="text-muted">Existing clauses with changed wording</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="border rounded p-3 bg-light text-center h-100">
+                        <div class="text-muted small text-uppercase fw-bold">Removed Clauses</div>
+                        <div class="fs-3 fw-bold text-warning">{{ comparison.counts.removed }}</div>
+                        <small class="text-muted">Present only in baseline</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="border rounded p-3 bg-light text-center h-100">
+                        <div class="text-muted small text-uppercase fw-bold">Added Clauses</div>
+                        <div class="fs-3 fw-bold text-danger">{{ comparison.counts.added }}</div>
+                        <small class="text-muted">Present only in revision</small>
+                    </div>
+                </div>
+            </div>
+
+            {% if comparison.modified_clauses %}
+            <div class="mb-4">
+                <h6 class="fw-bold mb-3"><i class="bi bi-pencil-square text-primary me-2"></i>Modified Clauses</h6>
+                {% for item in comparison.modified_clauses %}
+                <div class="border rounded p-3 mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="badge bg-primary">Modified clause</span>
+                        <small class="text-muted">Text similarity: {{ item.similarity }}%</small>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="small fw-bold text-secondary mb-1">BASELINE</div>
+                            <div class="p-2 rounded bg-light small">{{ item.baseline }}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="small fw-bold text-secondary mb-1">REVISION</div>
+                            <div class="p-2 rounded bg-light small">{{ item.revision }}</div>
+                        </div>
+                    </div>
+                    <div class="small mt-2"><strong>Detected change:</strong> {{ item.change }}</div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if comparison.only_in_1 %}
+            <div class="mb-3">
+                <h6 class="fw-bold text-warning">Removed from revision</h6>
+                <ul class="small">{% for clause in comparison.only_in_1 %}<li class="mb-1">{{ clause }}</li>{% endfor %}</ul>
+            </div>
+            {% endif %}
+
+            {% if comparison.only_in_2 %}
+            <div class="mb-3">
+                <h6 class="fw-bold text-danger">Added in revision</h6>
+                <ul class="small">{% for clause in comparison.only_in_2 %}<li class="mb-1">{{ clause }}</li>{% endfor %}</ul>
+            </div>
+            {% endif %}
+
+            {% if comparison.shared_clauses %}
+            <details class="mb-4">
+                <summary class="fw-bold text-success">View unchanged clauses ({{ comparison.counts.shared }})</summary>
+                <ul class="small mt-2">{% for item in comparison.shared_clauses %}<li class="mb-1">{{ item.baseline }}</li>{% endfor %}</ul>
+            </details>
+            {% endif %}
+
+            <!-- Side by Side Summaries -->
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="border rounded p-3">
+                        <h6 class="fw-bold text-dark border-bottom pb-2">Baseline Summary ({{ comparison.doc1.accuracy_score }}% Accuracy)</h6>
+                        <p class="small text-secondary mb-0">{{ comparison.doc1.summary_text }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border rounded p-3">
+                        <h6 class="fw-bold text-dark border-bottom pb-2">Revision Summary ({{ comparison.doc2.accuracy_score }}% Accuracy)</h6>
+                        <p class="small text-secondary mb-0">{{ comparison.doc2.summary_text }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
